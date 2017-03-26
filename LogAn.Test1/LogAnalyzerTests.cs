@@ -27,6 +27,17 @@ namespace LogAn.Test1
             Assert.IsTrue(result, "filename should be valid");
         }
 
+        [Test]
+        [Category("Exception Tests")]
+        public void IsValidFileName_EmptyFileName_ThrowsException()
+        {
+            // arrange
+            var analizer = new LogAnalyzer();
+
+            // assert
+            Assert.Throws<ArgumentException>(() => analizer.IsValidLogFileName(string.Empty));
+        }
+
         /*
          * Notice how the assert is performed against the mock object, 
          * and not against the LogAnalyzer class. 
@@ -70,17 +81,6 @@ namespace LogAn.Test1
 
         //    mocks.Verify(simulatedWebService); // assert expectations
         //}
-
-        [Test]
-        [Category("Exception Tests")]        
-        public void IsValidFileName_EmptyFileName_ThrowsException()
-        {
-            // arrange
-            var analizer = new LogAnalyzer();
-
-            // assert
-            Assert.Throws<ArgumentException>(() => analizer.IsValidLogFileName(string.Empty));
-        }
 
         [TearDown]
         public void TearDown()

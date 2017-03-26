@@ -8,7 +8,23 @@ namespace LogAn.Test1
     {
         [Test]
         [Category("Logic Tests")]
-        public void Analyze_WebServiceThrows_SendsEmail()
+        public void Analyze_TooShortFileName_CallsWebService()
+        {
+            // arrange
+            var mockWs = new MockWebService();
+            var analyzer = new LogAnalyzer2 { Email = null, Service = mockWs };
+            const string tooShortFileName = "abc.ext";
+
+            // act
+            analyzer.Analyze(tooShortFileName);
+
+            // assert
+            Assert.AreEqual("Filename too short:abc.ext", mockWs.LastError);
+        }
+
+        [Test]
+        [Category("Logic Tests")]
+        public void Analyze_TooShortFileName_WebServiceThrowsAndSendsEmail()
         {
             // arrange
             var stubService = new StubService
@@ -31,22 +47,6 @@ namespace LogAn.Test1
             Assert.AreEqual("a", mockEmail.To);
             Assert.AreEqual("fake exception", mockEmail.Body);
             Assert.AreEqual("subject", mockEmail.Subject);
-        }
-
-        [Test]
-        [Category("Logic Tests")]
-        public void Analyze_EmptyMessage_WebServiceGetMessage()
-        {
-            // arrange
-            var mockWs = new MockWebService();
-            var analyzer = new LogAnalyzer2 {Email = null, Service = mockWs};
-            const string tooShortFileName = "abc.ext";
-
-            // act
-            analyzer.Analyze(tooShortFileName);
-
-            // assert
-            Assert.AreEqual("Filename too short:abc.ext", mockWs.LastError);
         }
     }
 }
