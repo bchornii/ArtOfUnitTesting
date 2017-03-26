@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -15,7 +14,7 @@ namespace LogAn.Test1
         }
 
         [Test]
-        [Category("Fast Tests")]
+        [Category("Logic Tests")]
         public void IsValidFileName_validFile_ReturnsTrue()
         {           
             // arrange 
@@ -34,6 +33,7 @@ namespace LogAn.Test1
          * That’s because we’re testing the interaction between LogAnalyzer and the web service. 
          */
         [Test]
+        [Category("Logic Tests")]
         public void Analyze_TooShortFileName_CallsWebService()
         {
             // arrange
@@ -48,16 +48,38 @@ namespace LogAn.Test1
             Assert.AreEqual("File name too short : abc.ext", mockServise.LastError);
         }
 
+        /*
+         * The same test as previous one but with dynamic mocks
+         */
+        //[Test]
+        //public void Analyze_TooShortFileName_CallsWebService()
+        //{
+        //    // arrange
+        //    var mocks = new MockRepository();
+        //    var simulatedWebService = mocks.StrictMock<IWebService>();
+
+        //    using (mocks.Record())
+        //    {
+        //        simulatedWebService.LogError("File name too short : abc.ext"); // set expectation
+        //    }
+
+        //    var analizer = new LogAnalyzer(simulatedWebService);
+        //    const string fileName = "abc.ext";
+
+        //    analizer.Analize(fileName);
+
+        //    mocks.Verify(simulatedWebService); // assert expectations
+        //}
+
         [Test]
-        [Category("Slow Tests")]
-        [ExpectedException(typeof(ArgumentException), "No filename provided!")]
+        [Category("Exception Tests")]        
         public void IsValidFileName_EmptyFileName_ThrowsException()
         {
             // arrange
             var analizer = new LogAnalyzer();
 
-            // act
-            analizer.IsValidLogFileName(string.Empty);
+            // assert
+            Assert.Throws<ArgumentException>(() => analizer.IsValidLogFileName(string.Empty));
         }
 
         [TearDown]
