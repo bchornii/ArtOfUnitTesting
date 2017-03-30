@@ -40,7 +40,7 @@ namespace LogAn.Test1
 
         /*
          * Notice how the assert is performed against the mock object, 
-         * and not against the LogAnalyzer class. 
+         * and not against the LogAnalyzer class.
          * That’s because we’re testing the interaction between LogAnalyzer and the web service. 
          */
         [Test]
