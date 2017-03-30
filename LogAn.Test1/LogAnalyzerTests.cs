@@ -14,7 +14,7 @@ namespace LogAn.Test1
         }
 
         [Test]
-        [Category("Logic Tests")]
+        [Category("Logic Tests [Analizer1]")]
         public void IsValidFileName_validFile_ReturnsTrue()
         {           
             // arrange 
@@ -28,7 +28,7 @@ namespace LogAn.Test1
         }
 
         [Test]
-        [Category("Exception Tests")]
+        [Category("Exception Tests [Analizer1]")]
         public void IsValidFileName_EmptyFileName_ThrowsException()
         {
             // arrange
@@ -44,7 +44,7 @@ namespace LogAn.Test1
          * That’s because we’re testing the interaction between LogAnalyzer and the web service. 
          */
         [Test]
-        [Category("Logic Tests")]
+        [Category("Logic Tests [Analizer1]")]
         public void Analyze_TooShortFileName_CallsWebService()
         {
             // arrange
