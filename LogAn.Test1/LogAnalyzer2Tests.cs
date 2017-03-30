@@ -27,11 +27,7 @@ namespace LogAn.Test1
         public void Analyze_TooShortFileName_WebServiceThrowsAndSendsEmail()
         {
             // arrange
-            var stubService = new StubService
-            {
-                ToThrow = new Exception("fake exception")
-            
-            };
+            var stubService = new StubService { ToThrow = new Exception("fake exception") };
             var mockEmail = new MockEmailService();
             var log = new LogAnalyzer2
             {
